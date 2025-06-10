@@ -4,49 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Matrices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Calculadora de Matrices (V 0.1)</h1>
+    <div class="app-container">
+        <header class="app-header">
+            <h1><i class="fas fa-calculator"></i> Calculadora de Matrices <span class="version">v0.2</span></h1>
+        </header>
 
-    <div class="container">
-        <div class="matrix-input">
-            <h2>Matriz A</h2>
-            <div id="matrixA"></div>
+        <div class="main-content">
+            <div class="matrix-section">
+                <div class="matrix-container">
+                    <div class="matrix-input">
+                        <h2><i class="fas fa-table"></i> Matriz A</h2>
+                        <div id="matrixA" class="matrix-grid"></div>
+                    </div>
+
+                    <div class="matrix-input">
+                        <h2><i class="fas fa-table"></i> Matriz B</h2>
+                        <div id="matrixB" class="matrix-grid"></div>
+                    </div>
+                </div>
+
+                <div class="controls-panel">
+                    <div class="control-group">
+                        <label for="matrixSize"><i class="fas fa-expand"></i> Tamaño:</label>
+                        <input type="number" id="matrixSize" min="2" max="10" value="2" class="styled-input">
+                        <button id="createMatrices" class="btn primary"><i class="fas fa-plus-circle"></i> Crear</button>
+                    </div>
+
+                    <div class="control-group">
+                        <button id="randomValues" class="btn secondary"><i class="fas fa-random"></i> Aleatorio</button>
+                        <button id="exampleMatrix" class="btn secondary"><i class="fas fa-lightbulb"></i> Ejemplo</button>
+                        <button id="clearMatrices" class="btn danger"><i class="fas fa-trash-alt"></i> Limpiar</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="operations-section">
+                <h2><i class="fas fa-tasks"></i> Operaciones</h2>
+                <div class="operations-grid">
+                    <button id="add" class="btn operation"><i class="fas fa-plus"></i> A + B</button>
+                    <button id="subtract" class="btn operation"><i class="fas fa-minus"></i> A - B</button>
+                    <button id="multiply" class="btn operation"><i class="fas fa-times"></i> A × B</button>
+                    
+                    <div class="scalar-operation">
+                        <input type="number" id="scalar" value="1" class="styled-input small">
+                        <button id="scalarMultiply" class="btn operation"><i class="fas fa-asterisk"></i> k × A</button>
+                    </div>
+                    
+                    <button id="transpose" class="btn operation"><i class="fas fa-exchange-alt"></i> Transponer A</button>
+                    <button id="determinant" class="btn operation"><i class="fas fa-percentage"></i> Det(A)</button>
+                    <button id="inverse" class="btn operation"><i class="fas fa-superscript"></i> Inversa A</button>
+                    <button id="identity" class="btn operation"><i class="fas fa-th"></i> Identidad</button>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h2><i class="fas fa-poll"></i> Resultado</h2>
+                <div class="result-container">
+                    <pre id="resultMatrix" class="result-matrix">Esperando operación...</pre>
+                </div>
+            </div>
         </div>
-
-        <div class="matrix-input">
-            <h2>Matriz B</h2>
-            <div id="matrixB"></div>
-        </div>
-    </div>
-
-    <div class="controls">
-        <label for="matrixSize">Tamaño de la Matriz (2-10):</label>
-        <input type="number" id="matrixSize" min="2" max="10" value="2">
-        <button id="createMatrices">Crear Matrices</button>
-        <button id="randomValues">Valores Aleatorios</button>
-        <button id="exampleMatrix">Matriz de Ejemplo</button>
-        <button id="clearMatrices">Limpiar Matrices</button>
-    </div>
-
-    <div class="operations">
-        <h2>Operaciones</h2>
-        <button id="add">A + B</button>
-        <button id="subtract">A - B</button>
-        <button id="multiply">A * B</button>
-        <label for="scalar">Escalar:</label>
-        <input type="number" id="scalar" value="1">
-        <button id="scalarMultiply">k * A</button>
-        <button id="transpose">Transponer A</button>
-        <button id="determinant">Determinante de A</button>
-        <button id="inverse">Inversa de A</button>
-        <button id="identity">Matriz Identidad</button>
-    </div>
-
-    <div id="result" class="result">
-        <h2>Resultado</h2>
-        <pre id="resultMatrix"></pre>
     </div>
 
     <script src="script.js"></script>
