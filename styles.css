@@ -1,0 +1,61 @@
+body {
+    font-family: sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+    color: #333;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.matrix-input {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #fff;
+}
+
+#matrixA, #matrixB {
+    display: grid;
+    gap: 5px;
+}
+
+.controls, .operations {
+    margin-bottom: 20px;
+}
+
+input[type="number"] {
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+}
+
+button {
+    padding: 8px 12px;
+    margin: 5px;
+    cursor: pointer;
+    background-color: #ddd;
+    border: 1px solid #ccc;
+}
+
+button:hover {
+    background-color: #ccc;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #eee;
+}
+
+#resultMatrix {
+    white-space: pre-wrap;
+}

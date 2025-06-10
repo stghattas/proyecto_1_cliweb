@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Matrices</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Calculadora de Matrices (V 0.1)</h1>
+
+    <div class="container">
+        <div class="matrix-input">
+            <h2>Matriz A</h2>
+            <div id="matrixA"></div>
+        </div>
+
+        <div class="matrix-input">
+            <h2>Matriz B</h2>
+            <div id="matrixB"></div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <label for="matrixSize">Tamaño de la Matriz (2-10):</label>
+        <input type="number" id="matrixSize" min="2" max="10" value="2">
+        <button id="createMatrices">Crear Matrices</button>
+        <button id="randomValues">Valores Aleatorios</button>
+        <button id="exampleMatrix">Matriz de Ejemplo</button>
+        <button id="clearMatrices">Limpiar Matrices</button>
+    </div>
+
+    <div class="operations">
+        <h2>Operaciones</h2>
+        <button id="add">A + B</button>
+        <button id="subtract">A - B</button>
+        <button id="multiply">A * B</button>
+        <label for="scalar">Escalar:</label>
+        <input type="number" id="scalar" value="1">
+        <button id="scalarMultiply">k * A</button>
+        <button id="transpose">Transponer A</button>
+        <button id="determinant">Determinante de A</button>
+        <button id="inverse">Inversa de A</button>
+        <button id="identity">Matriz Identidad</button>
+    </div>
+
+    <div id="result" class="result">
+        <h2>Resultado</h2>
+        <pre id="resultMatrix"></pre>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
