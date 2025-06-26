@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
+    //arriba se carga el DOM y abajo se obtienen elementos del HTML por su id
     const matrixSizeInput = document.getElementById('matrixSize');
     const createMatricesButton = document.getElementById('createMatrices');
     const randomValuesButton = document.getElementById('randomValues');
@@ -17,13 +18,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const matrixAContainer = document.getElementById('matrixA');
     const matrixBContainer = document.getElementById('matrixB');
 
+    //variables para la creacion y manejo de las matrices
     let matrixSize = 2;
     let matrixA = [];
     let matrixB = [];
 
+    //Funcion para crear las matrices vacias
     function createMatrixInputs() {
         matrixSize = parseInt(matrixSizeInput.value);
         if (matrixSize < 2 || matrixSize > 10) {
+            //Condicional para el tamaño de la matriz
             alert("El tamaño de la matriz debe estar entre 2 y 10.");
             return;
         }
@@ -54,6 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    //Funcion que obtiene los valores insertados por el usuario, ajustada para asegurarse de que los valores sean numericos
     function getMatrixValues(matrixId) {
         const matrix = Array(matrixSize).fill(null).map(() => Array(matrixSize).fill(0));
         for (let i = 0; i < matrixSize; i++) {
@@ -61,7 +66,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const inputId = `${matrixId}_${i}_${j}`;
                 const inputValue = parseFloat(document.getElementById(inputId).value);
                 if (isNaN(inputValue)) {
-                    alert("Por favor, ingrese valores numéricos válidos.");
+                    alert("Ingrese valores numericos.");
                     return null;
                 }
                 matrix[i][j] = inputValue;
@@ -79,6 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    //Indicada por su mismo nombre, esta funcion muestra el resultado de cualquiera de las operaciones realizadas
     function displayResult(result) {
         if (typeof result === 'string') {
             resultMatrixDisplay.textContent = result;
@@ -90,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    //suma de matrices
     function addMatrices(a, b) {
         if (a.length !== b.length || a[0].length !== b[0].length) {
             return "Las matrices deben tener las mismas dimensiones para la suma.";
@@ -98,6 +105,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
 
+    //resta de matrices
     function subtractMatrices(a, b) {
         if (a.length !== b.length || a[0].length !== b[0].length) {
             return "Las matrices deben tener las mismas dimensiones para la resta.";
@@ -106,14 +114,16 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
 
+    //multiplicacion de matrices
     function multiplyMatrices(a, b) {
         const rowsA = a.length;
         const colsA = a[0].length;
         const rowsB = b.length;
         const colsB = b[0].length;
 
+        //algo redundante porque no se permiten ingresar matrices cuyo numero de columnas sea distinto al de filas y viceversa
         if (colsA !== rowsB) {
-            return "El número de columnas de A debe ser igual al número de filas de B para la multiplicación.";
+            return "El numero de columnas de A debe ser igual al numero de filas de B para la multiplicacion.";
         }
 
         const result = Array(rowsA).fill(null).map(() => Array(colsB).fill(0));
@@ -127,11 +137,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return result;
     }
-
+    
+    //funcion escalar (k x A)
     function scalarMultiply(matrix, scalar) {
         return matrix.map(row => row.map(val => val * scalar));
     }
 
+    //funcion transponer matriz
     function transposeMatrix(matrix) {
         const rows = matrix.length;
         const cols = matrix[0].length;
@@ -145,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return result;
     }
 
+    //determinante de la matriz
     function determinant(matrix) {
         const n = matrix.length;
 
@@ -169,6 +182,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return det;
     }
 
+    //matriz inversa, chequea que pueda ser invertible
     function inverseMatrix(matrix) {
         const det = determinant(matrix);
         if (det === 0) {
@@ -205,6 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return inverse;
     }
 
+    //matriz identidad
     function identityMatrix(size) {
         const identity = Array(size).fill(null).map(() => Array(size).fill(0));
         for (let i = 0; i < size; i++) {
@@ -213,8 +228,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return identity;
     }
 
+    //boton esencial para crear la matriz
     createMatricesButton.addEventListener('click', createMatrixInputs);
 
+    //este boton asigna valores aleatorios a la matriz sin importar el tamaño
     randomValuesButton.addEventListener('click', function() {
         matrixSize = parseInt(matrixSizeInput.value);
         for (let i = 0; i < matrixSize; i++) {
@@ -225,6 +242,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+    //esta funcion crea una matriz de ejemplo, sin embargo es poco ortodoxa ya que no actua con matrices mayores a 4x4
     exampleMatrixButton.addEventListener('click', function() {
         matrixSize = parseInt(matrixSizeInput.value);
         if (matrixSize === 2) {
@@ -233,9 +251,13 @@ document.addEventListener('DOMContentLoaded', function() {
         } else if (matrixSize === 3) {
             setMatrixValues([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 'A');
             setMatrixValues([[9, 8, 7], [6, 5, 4], [3, 2, 1]], 'B');
+        } else if (matrixSize > 3) {
+            //se intento establecer una advertencia pero no funciona del todo bien
+            alert("Establezca el tamaño de la matriz en 2 o 3")
         }
     });
 
+    //limpia los ajustes y valores de las matrices a un 2x2 vacio
     clearMatricesButton.addEventListener('click', function() {
         matrixSize = parseInt(matrixSizeInput.value);
         for (let i = 0; i < matrixSize; i++) {
@@ -245,6 +267,8 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
+
+    //De aqui en adelante son botones que ejecutan las operaciones antes mencionadas
 
     addMatricesButton.addEventListener('click', function() {
         const a = getMatrixValues('A');
