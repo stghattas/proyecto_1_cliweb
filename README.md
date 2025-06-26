@@ -1,4 +1,4 @@
-# 🧮 Calculadora de Matrices
+ # 🧮 Calculadora de Matrices
 
 Esta aplicación web permite realizar operaciones matemáticas con **matrices cuadradas** de tamaño **2×2 hasta 10×10**. Ideal para estudiantes, profesores y entusiastas de las matemáticas.
 
@@ -11,11 +11,11 @@ Esta aplicación web permite realizar operaciones matemáticas con **matrices cu
 - ➕ Suma de matrices `A + B`  
 - ➖ Resta de matrices `A - B`  
 - ✖️ Multiplicación de matrices `A × B`  
-- 🌟 Multiplicación escalar `k × A`  
-- 🔁 Transposición de matriz `Aᵗ`  
-- 📐 Cálculo de determinante `det(A)`  
-- 🔄 Inversa de matriz `A⁻¹`  
-- 🆔 Generación de matriz identidad
+- 🌟 Multiplicación escalar `k × A` y `k × B`  
+- 🔁 Transposición de matriz `Aᵗ` y `Bᵗ`  
+- 📐 Cálculo de determinante `det(A)` y `det(B)`  
+- 🔄 Inversa de matriz `A⁻¹` y `B⁻¹`  
+- 🆔 Generación de matriz identidad para A y B
 
 🧰 **Funciones adicionales**:
 - Generar valores aleatorios
