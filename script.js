@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     //arriba se carga el DOM y abajo se obtienen elementos del HTML por su id
     const matrixSizeInput = document.getElementById('matrixSize');
     const createMatricesButton = document.getElementById('createMatrices');
@@ -10,13 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
     const multiplyMatricesButton = document.getElementById('multiply');
     const scalarInput = document.getElementById('scalar');
     const scalarMultiplyButton = document.getElementById('scalarMultiply');
+    const scalarInputB = document.getElementById('scalarB');
+    const scalarMultiplyBButton = document.getElementById('scalarMultiplyB');
     const transposeButton = document.getElementById('transpose');
     const determinantButton = document.getElementById('determinant');
     const inverseButton = document.getElementById('inverse');
-    const identityButton = document.getElementById('identity');
     const resultMatrixDisplay = document.getElementById('resultMatrix');
     const matrixAContainer = document.getElementById('matrixA');
     const matrixBContainer = document.getElementById('matrixB');
+    const transposeBButton = document.getElementById('transposeB');
+    const determinantBButton = document.getElementById('determinantB');
+    const inverseBButton = document.getElementById('inverseB');
+    const identityAButton = document.getElementById('identityA');
+    const identityBButton = document.getElementById('identityB');
+
 
     //variables para la creacion y manejo de las matrices
     let matrixSize = 2;
@@ -87,14 +94,23 @@ document.addEventListener('DOMContentLoaded', function() {
     //Indicada por su mismo nombre, esta funcion muestra el resultado de cualquiera de las operaciones realizadas
     function displayResult(result) {
         if (typeof result === 'string') {
-            resultMatrixDisplay.textContent = result;
+            resultMatrixDisplay.innerHTML = `<div style="text-align: center;">${result}</div>`;
         } else if (Array.isArray(result)) {
-            let matrixString = result.map(row => row.join('\t')).join('\n');
-            resultMatrixDisplay.textContent = matrixString;
+            let html = '<div style="display: flex; justify-content: center;"><table style="border-collapse: collapse;">';
+            for (let i = 0; i < result.length; i++) {
+                html += '<tr>';
+                for (let j = 0; j < result[i].length; j++) {
+                    html += `<td style="border: 1px solid #000; padding: 6px; min-width: 40px; text-align: center;">${Number(result[i][j]).toFixed(4)}</td>`;
+                }
+                html += '</tr>';
+            }
+            html += '</table></div>';
+            resultMatrixDisplay.innerHTML = html;
         } else {
-            resultMatrixDisplay.textContent = result;
+            resultMatrixDisplay.innerHTML = `<div style="text-align: center;">${result}</div>`;
         }
     }
+
 
     //suma de matrices
     function addMatrices(a, b) {
@@ -137,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         return result;
     }
-    
+
     //funcion escalar (k x A)
     function scalarMultiply(matrix, scalar) {
         return matrix.map(row => row.map(val => val * scalar));
@@ -232,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function() {
     createMatricesButton.addEventListener('click', createMatrixInputs);
 
     //este boton asigna valores aleatorios a la matriz sin importar el tamaño
-    randomValuesButton.addEventListener('click', function() {
+    randomValuesButton.addEventListener('click', function () {
         matrixSize = parseInt(matrixSizeInput.value);
         for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
@@ -242,23 +258,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    //esta funcion crea una matriz de ejemplo, sin embargo es poco ortodoxa ya que no actua con matrices mayores a 4x4
-    exampleMatrixButton.addEventListener('click', function() {
-        matrixSize = parseInt(matrixSizeInput.value);
-        if (matrixSize === 2) {
-            setMatrixValues([[1, 2], [3, 4]], 'A');
-            setMatrixValues([[5, 6], [7, 8]], 'B');
-        } else if (matrixSize === 3) {
-            setMatrixValues([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 'A');
-            setMatrixValues([[9, 8, 7], [6, 5, 4], [3, 2, 1]], 'B');
-        } else if (matrixSize > 3) {
-            //se intento establecer una advertencia pero no funciona del todo bien
-            alert("Establezca el tamaño de la matriz en 2 o 3")
-        }
+    //esta funcion crea una matriz de ejemplo, sin embargo es poco ortodoxa ya que no actua con matrices mayores a 4x4 (corregido)
+    exampleMatrixButton.addEventListener('click', function () {
+        matrixSizeInput.value = 3;
+        createMatrixInputs();
+        setMatrixValues([[1, 2, 3], [4, 5, 6], [7, 8, 9]], 'A');
+        setMatrixValues([[9, 8, 7], [6, 5, 4], [3, 2, 1]], 'B');
     });
 
+
     //limpia los ajustes y valores de las matrices a un 2x2 vacio
-    clearMatricesButton.addEventListener('click', function() {
+    clearMatricesButton.addEventListener('click', function () {
         matrixSize = parseInt(matrixSizeInput.value);
         for (let i = 0; i < matrixSize; i++) {
             for (let j = 0; j < matrixSize; j++) {
@@ -270,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     //De aqui en adelante son botones que ejecutan las operaciones antes mencionadas
 
-    addMatricesButton.addEventListener('click', function() {
+    addMatricesButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         const b = getMatrixValues('B');
         if (a && b) {
@@ -279,7 +289,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    subtractMatricesButton.addEventListener('click', function() {
+    subtractMatricesButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         const b = getMatrixValues('B');
         if (a && b) {
@@ -288,7 +298,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    multiplyMatricesButton.addEventListener('click', function() {
+    multiplyMatricesButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         const b = getMatrixValues('B');
         if (a && b) {
@@ -297,7 +307,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    scalarMultiplyButton.addEventListener('click', function() {
+    scalarMultiplyButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         const scalar = parseFloat(scalarInput.value);
         if (a) {
@@ -306,7 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    transposeButton.addEventListener('click', function() {
+    transposeButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         if (a) {
             const result = transposeMatrix(a);
@@ -314,7 +324,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    determinantButton.addEventListener('click', function() {
+    determinantButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         if (a) {
             const result = determinant(a);
@@ -322,7 +332,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    inverseButton.addEventListener('click', function() {
+    inverseButton.addEventListener('click', function () {
         const a = getMatrixValues('A');
         if (a) {
             const result = inverseMatrix(a);
@@ -330,11 +340,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    identityButton.addEventListener('click', function() {
-        matrixSize = parseInt(matrixSizeInput.value);
-        const result = identityMatrix(matrixSize);
-        displayResult(result);
+    transposeBButton.addEventListener('click', function () {
+        const b = getMatrixValues('B');
+        if (b) displayResult(transposeMatrix(b));
     });
+
+    determinantBButton.addEventListener('click', function () {
+        const b = getMatrixValues('B');
+        if (b) displayResult(determinant(b).toFixed(4));
+    });
+
+    inverseBButton.addEventListener('click', function () {
+        const b = getMatrixValues('B');
+        if (b) displayResult(inverseMatrix(b));
+    });
+
+    identityAButton.addEventListener('click', function () {
+        displayResult(identityMatrix(matrixSize));
+    });
+
+    identityBButton.addEventListener('click', function () {
+        displayResult(identityMatrix(matrixSize));
+    });
+
+    scalarMultiplyBButton.addEventListener('click', function () {
+        const b = getMatrixValues('B');
+        const scalar = parseFloat(scalarInputB.value);
+        if (b) {
+            const result = scalarMultiply(b, scalar);
+            displayResult(result);
+        }
+    });
+
+
+
 
     createMatrixInputs();
 });
